@@ -66,6 +66,33 @@ public class Persona {
 		super();
 		this.id = id;
 	}
+	
+	
+
+	public Persona(Long id, @NotEmpty String nombre, @NotEmpty String telefono, @NotEmpty String correo,
+			@NotNull Boolean activo) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.activo = activo;
+	}
+
+	public Persona(Long id, @NotEmpty String nombre, @NotEmpty String telefono, @NotEmpty String correo,
+			@NotNull Boolean activo, Date fechaRegistro, Date fechaModificacion, Date fechaBaja,
+			@NotNull Entidad entidad) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.activo = activo;
+		this.fechaRegistro = fechaRegistro;
+		this.fechaModificacion = fechaModificacion;
+		this.fechaBaja = fechaBaja;
+		this.entidad = entidad;
+	}
 
 	public Persona(String nombre, String telefono, String correo, Boolean activo, Date fechaRegistro,
 			Date fechaModificacion, Date fechaBaja, Entidad entidad, Set<Grupo> grupos) {

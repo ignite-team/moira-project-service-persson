@@ -25,6 +25,8 @@ public class EntidadResource implements Serializable {
 	private Date fechaCreacion;
 
 	private Date fechaModificacion;
+	
+	private Set<PersonaResource> personas;
 
 
 	public EntidadResource() {

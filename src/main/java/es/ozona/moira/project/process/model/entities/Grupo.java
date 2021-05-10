@@ -37,8 +37,16 @@ public class Grupo {
 	public Grupo(Long id) {
 		super();
 		this.id = id;
-	}
+	}	
 	
+	public Grupo(Long id, String nombre, Date fechaCreacion, Date fechaModificacion) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaModificacion = fechaModificacion;
+	}
+
 	public Grupo(String nombre, Date fechaCreacion, Date fechaModificacion, Set<Persona> personas) {
 		super();
 		this.nombre = nombre;

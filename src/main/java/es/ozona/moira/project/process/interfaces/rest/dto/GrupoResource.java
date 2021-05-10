@@ -27,7 +27,7 @@ public class GrupoResource implements Serializable{
 	
 	private Date fechaModificacion;
 	
-	private Set<Persona> personas;
+	private Set<PersonaResource> personas;
 
 	public GrupoResource() {
 		super();
@@ -37,12 +37,11 @@ public class GrupoResource implements Serializable{
 		this.id = id;
 	}
 
-	public GrupoResource(@NotEmpty String nombre, Date fechaCreacion, Date fechaModificacion, Set<Persona> personas) {
+	public GrupoResource(@NotEmpty String nombre, Date fechaCreacion, Date fechaModificacion) {
 		super();
 		this.nombre = nombre;
 		this.fechaCreacion = fechaCreacion;
 		this.fechaModificacion = fechaModificacion;
-		this.personas = personas;
 	}
 
 	public Long getId() {
@@ -77,12 +76,14 @@ public class GrupoResource implements Serializable{
 		this.fechaModificacion = fechaModificacion;
 	}
 
-	public Set<Persona> getPersonas() {
+	public Set<PersonaResource> getPersonas() {
 		return personas;
 	}
 
-	public void setPersonas(Set<Persona> personas) {
+	public void setPersonas(Set<PersonaResource> personas) {
 		this.personas = personas;
 	}
+
+
 	
 }

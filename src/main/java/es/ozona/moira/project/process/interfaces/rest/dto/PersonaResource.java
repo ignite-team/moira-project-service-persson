@@ -35,9 +35,9 @@ public class PersonaResource implements Serializable {
 	private Date fechaBaja;
 	
 	@NotNull
-	private Entidad entidad;
+	private EntidadResource entidad;
 	
-	private Set<Grupo> grupos;
+	private Set<GrupoResource> grupos;
 
 	public PersonaResource() {
 		super();
@@ -46,11 +46,24 @@ public class PersonaResource implements Serializable {
 	public PersonaResource(Long id) {
 		this.id = id;
 	}
-
-	public PersonaResource(@NotEmpty String nombre, @NotEmpty String telefono, @NotEmpty String correo,
-			@NotNull Boolean activo, Date fechaRegistro, Date fechaModificacion, Date fechaBaja,
-			@NotNull Entidad entidad, Set<Grupo> grupos) {
+	
+	public PersonaResource(@NotNull Long id, @NotEmpty String nombre, @NotEmpty String telefono,
+			@NotEmpty String correo, @NotNull Boolean activo) {
 		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.activo = activo;
+	}
+
+	
+
+	public PersonaResource(@NotNull Long id, @NotEmpty String nombre, @NotEmpty String telefono,
+			@NotEmpty String correo, @NotNull Boolean activo, Date fechaRegistro, Date fechaModificacion,
+			Date fechaBaja, @NotNull EntidadResource entidad, Set<GrupoResource> grupos) {
+		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.correo = correo;
@@ -126,21 +139,23 @@ public class PersonaResource implements Serializable {
 		this.fechaBaja = fechaBaja;
 	}
 
-	public Entidad getEntidad() {
+	public EntidadResource getEntidad() {
 		return entidad;
 	}
 
-	public void setEntidad(Entidad entidad) {
+	public void setEntidad(EntidadResource entidad) {
 		this.entidad = entidad;
 	}
 
-	public Set<Grupo> getGrupos() {
+	public Set<GrupoResource> getGrupos() {
 		return grupos;
 	}
 
-	public void setGrupos(Set<Grupo> grupos) {
+	public void setGrupos(Set<GrupoResource> grupos) {
 		this.grupos = grupos;
 	}
+
+	
 	
 	
 }

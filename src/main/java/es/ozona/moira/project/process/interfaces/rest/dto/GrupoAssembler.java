@@ -18,7 +18,6 @@ public class GrupoAssembler {
 		res.setNombre(grupo.getNombre());
 		res.setFechaCreacion(grupo.getFechaCreacion());
 		res.setFechaModificacion(grupo.getFechaModificacion());
-		res.setPersonas(grupo.getPersonas());
 		
 		return res;
 	}
