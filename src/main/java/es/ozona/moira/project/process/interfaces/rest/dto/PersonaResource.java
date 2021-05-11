@@ -2,22 +2,36 @@ package es.ozona.moira.project.process.interfaces.rest.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import es.ozona.moira.project.process.model.entities.Entidad;
 import es.ozona.moira.project.process.model.entities.Grupo;
+import es.ozona.moira.project.process.model.entities.Miembro;
 
 
 public class PersonaResource implements Serializable {
-
-	@NotNull
+	@Id
 	private Long id;
 	
 	@NotEmpty
+	private String nombre_completo;
+	
+	@NotEmpty
 	private String nombre;
+	
+	@NotEmpty
+	private String apellidos;
 	
 	@NotEmpty
 	private String telefono;
@@ -28,7 +42,7 @@ public class PersonaResource implements Serializable {
 	@NotNull
 	private Boolean activo;
 	
-	private Date fechaRegistro;
+	private Date fechaCreacion;
 	
 	private Date fechaModificacion;
 	
@@ -37,42 +51,50 @@ public class PersonaResource implements Serializable {
 	@NotNull
 	private EntidadResource entidad;
 	
-	private Set<GrupoResource> grupos;
+	private Set<MiembroResource> miembros = new HashSet<>(0);
 
 	public PersonaResource() {
 		super();
 	}
-	
+
 	public PersonaResource(Long id) {
-		this.id = id;
-	}
-	
-	public PersonaResource(@NotNull Long id, @NotEmpty String nombre, @NotEmpty String telefono,
-			@NotEmpty String correo, @NotNull Boolean activo) {
 		super();
 		this.id = id;
+	}
+
+	public PersonaResource(@NotEmpty String nombre_completo, @NotEmpty String nombre, @NotEmpty String apellidos,
+			@NotEmpty String telefono, @NotEmpty String correo, @NotNull Boolean activo, Date fechaCreacion,
+			Date fechaModificacion, Date fechaBaja, @NotNull EntidadResource entidad, Set<MiembroResource> miembro) {
+		super();
+		this.nombre_completo = nombre_completo;
 		this.nombre = nombre;
+		this.apellidos = apellidos;
 		this.telefono = telefono;
 		this.correo = correo;
 		this.activo = activo;
-	}
-
-	
-
-	public PersonaResource(@NotNull Long id, @NotEmpty String nombre, @NotEmpty String telefono,
-			@NotEmpty String correo, @NotNull Boolean activo, Date fechaRegistro, Date fechaModificacion,
-			Date fechaBaja, @NotNull EntidadResource entidad, Set<GrupoResource> grupos) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.correo = correo;
-		this.activo = activo;
-		this.fechaRegistro = fechaRegistro;
+		this.fechaCreacion = fechaCreacion;
 		this.fechaModificacion = fechaModificacion;
 		this.fechaBaja = fechaBaja;
 		this.entidad = entidad;
-		this.grupos = grupos;
+		this.miembros = miembro;
+	}
+
+	public PersonaResource(Long id, @NotEmpty String nombre_completo, @NotEmpty String nombre, @NotEmpty String apellidos,
+			@NotEmpty String telefono, @NotEmpty String correo, @NotNull Boolean activo, Date fechaCreacion,
+			Date fechaModificacion, Date fechaBaja, @NotNull Entidad entidadResource, Set<MiembroResource> miembro) {
+		super();
+		this.id = id;
+		this.nombre_completo = nombre_completo;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.activo = activo;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaModificacion = fechaModificacion;
+		this.fechaBaja = fechaBaja;
+		this.entidad = entidad;
+		this.miembros = miembro;
 	}
 
 	public Long getId() {
@@ -83,12 +105,28 @@ public class PersonaResource implements Serializable {
 		this.id = id;
 	}
 
+	public String getNombre_completo() {
+		return nombre_completo;
+	}
+
+	public void setNombre_completo(String nombre_completo) {
+		this.nombre_completo = nombre_completo;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 	public String getTelefono() {
@@ -115,12 +153,12 @@ public class PersonaResource implements Serializable {
 		this.activo = activo;
 	}
 
-	public Date getFechaRegistro() {
-		return fechaRegistro;
+	public Date getFechaCreacion() {
+		return fechaCreacion;
 	}
 
-	public void setFechaRegistro(Date fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
 	public Date getFechaModificacion() {
@@ -147,15 +185,12 @@ public class PersonaResource implements Serializable {
 		this.entidad = entidad;
 	}
 
-	public Set<GrupoResource> getGrupos() {
-		return grupos;
+	public Set<MiembroResource> getMiembros() {
+		return miembros;
 	}
 
-	public void setGrupos(Set<GrupoResource> grupos) {
-		this.grupos = grupos;
+	public void setMiembros(Set<MiembroResource> miembros) {
+		this.miembros = miembros;
 	}
-
-	
-	
 	
 }

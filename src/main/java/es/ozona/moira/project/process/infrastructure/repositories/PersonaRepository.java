@@ -13,5 +13,9 @@ import es.ozona.moira.project.process.model.entities.Persona;
 @Repository
 public interface PersonaRepository extends JpaRepository<Persona, Long>{
 
-	List<Persona> findByEntidadAndGrupos(Entidad entidad, Grupo grupo);
+	List<Persona> findByEntidadAndMiembros_Grupo(Entidad entidad, Grupo grupo);
+	
+	List<Persona> findByMiembros_Grupo(Grupo grupo);
+	
+	List<Persona> findByEntidad(Entidad entidad);
 }
