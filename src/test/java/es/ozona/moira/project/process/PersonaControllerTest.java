@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +28,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import es.ozona.moira.project.process.infrastructure.repositories.PersonaRepository;
 import es.ozona.moira.project.process.interfaces.rest.PersonaController;
@@ -37,50 +41,54 @@ import es.ozona.moira.project.process.model.entities.Entidad;
 import es.ozona.moira.project.process.model.entities.Grupo;
 import es.ozona.moira.project.process.model.entities.Persona;
 
-@SpringBootTest
-public class PersonaControllerTest {
-
-	@Autowired
-	public PersonaController personaController;
+//@Sql({"data/data.sql"})
+public class PersonaControllerTest extends AbstractTest{	
 	
-	@MockBean
-	public PersonaRepository personaRepository;
-	
-	Date date;
-	
+	@Override
 	@BeforeEach
-	public void setup() {
-		Grupo gr = new Grupo(1L, "Administrador", new Date(), new Date());
-		Entidad ent = new Entidad("Ozona", new Date(), new Date());
-		ent.setId(1L);
-		date = new Date();
-		Persona pers = new Persona("nombre", "telefono", "correo", true, date, date, null, ent, Set.of(gr));
-		pers.setId(1L);
-		personaRepository.save(pers);
-		Mockito.when(personaRepository.findByEntidadAndGrupos(Mockito.any(), Mockito.any())).thenReturn(List.of(pers));
+	public void setUp() {
+	   super.setUp();
 	}
 	
 	@Test
-	public void HttpOkNotResults() throws Exception {
-		ResponseEntity<List<PersonaResource>> response = personaController.list(1L, 1L);
-				
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+	public void getByEntidadAndGrupo() throws Exception {
+		String uri = "/api/v1/personas/search?identidad=1&idgrupo=1";
+	      MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+	         .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+	      
+	      int status = mvcResult.getResponse().getStatus();
+	      assertEquals(200, status);
+	      String content = mvcResult.getResponse().getContentAsString();
+	      System.out.println();
+	      PersonaResource[] personaList = super.mapFromJson(content, PersonaResource[].class);
+	      assertTrue(personaList.length > 0);
 	}
 	
 	@Test
-	public void CorrectContent() throws Exception {
-		ResponseEntity<List<PersonaResource>> response = personaController.list(1L, 1L);
-		List<PersonaResource> content = response.getBody();
-		PersonaResource persona = content.get(0);
-		
-		assertTrue(content.size()==1);
-		assertEquals(persona.getNombre(), "nombre");
-		assertEquals(persona.getTelefono(), "telefono");
-		assertEquals(persona.getCorreo(), "correo");
-		assertEquals(persona.getFechaRegistro(), date);
-		assertEquals(persona.getFechaModificacion(), date);
-		assertEquals(persona.getFechaBaja(), null);
-		assertEquals(persona.getEntidad().getId(), 1L);
-		assertEquals(persona.getGrupos().size() ,1);
+	public void getByGrupo() throws Exception {
+		String uri = "/api/v1/personas/searchByGrupo?idgrupo=1";
+	      MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+	         .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+	      
+	      int status = mvcResult.getResponse().getStatus();
+	      assertEquals(200, status);
+	      String content = mvcResult.getResponse().getContentAsString();
+	      System.out.println();
+	      PersonaResource[] personaList = super.mapFromJson(content, PersonaResource[].class);
+	      assertTrue(personaList.length > 0);
+	}
+	
+	@Test
+	public void getByEntidad() throws Exception {
+		String uri = "/api/v1/personas/searchByEntidad?identidad=1";
+	      MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+	         .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+	      
+	      int status = mvcResult.getResponse().getStatus();
+	      assertEquals(200, status);
+	      String content = mvcResult.getResponse().getContentAsString();
+	      System.out.println();
+	      PersonaResource[] personaList = super.mapFromJson(content, PersonaResource[].class);
+	      assertTrue(personaList.length > 0);
 	}
 }

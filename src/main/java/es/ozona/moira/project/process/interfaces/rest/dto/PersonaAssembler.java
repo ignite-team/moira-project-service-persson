@@ -41,6 +41,13 @@ public class PersonaAssembler {
 	}
 	
 	public static PersonaResource buildFromEntity(Persona persona) {
+		PersonaResource res = buildFromEntityNonMembers(persona);
+		res.setMiembros(Set.copyOf(MiembroAssembler.buildFromEntities(Lists.newArrayList(persona.getMiembro()))));
+		
+		return res;
+	}
+	
+	public static PersonaResource buildFromEntityNonMembers(Persona persona) {
 		if (persona == null)
 			return null;
 		

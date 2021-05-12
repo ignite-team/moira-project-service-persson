@@ -1,3 +1,5 @@
+
+
 server: 
   port: 8081
 spring: 
@@ -6,6 +8,7 @@ spring:
     password: 
     url: "jdbc:h2:file:C:/Proxectos/personasdb;DB_CLOSE_DELAY=2;AUTO_SERVER=TRUE"
     username: temp
+    initialization-mode: always
   h2: 
     console: 
       enabled: true
@@ -17,3 +20,4 @@ spring:
       ddl-auto: create-drop
     open-in-view: true
     show-sql: true
+    

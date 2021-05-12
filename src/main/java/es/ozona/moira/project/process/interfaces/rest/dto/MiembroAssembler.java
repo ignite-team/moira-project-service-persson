@@ -36,6 +36,8 @@ public class MiembroAssembler {
 		res.setFechaModificacion(miembro.getFechaModificacion());
 		res.setFechaAlta(miembro.getFechaAlta());
 		res.setFechaBaja(miembro.getFechaBaja());
+		res.setPersona(PersonaAssembler.buildFromEntityNonMembers(miembro.getPersona()));
+		res.setGrupo(GrupoAssembler.buildFromEntity(miembro.getGrupo()));
 		
 		return res;
 	}

@@ -70,7 +70,7 @@ public class PersonaController {
 
 	}
 	
-	@GetMapping("/personas/search")
+	@GetMapping("/personas/searchByEntidad")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
 	@ApiOperation(value = "Lista las personas de un grupo.", notes = "")
@@ -85,7 +85,7 @@ public class PersonaController {
 
 	}
 	
-	@GetMapping("/personas/search")
+	@GetMapping("/personas/searchByGrupo")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
 	@ApiOperation(value = "Lista las personas de un grupo.", notes = "")
