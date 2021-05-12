@@ -1,11 +1,13 @@
 package es.ozona.moira.project.process.interfaces.rest;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,9 +41,9 @@ public class PersonaController {
 	
 	@PutMapping("/personas/save")
 	@ResponseBody
-	@ResponseStatus(code = HttpStatus.OK)
+	@ResponseStatus(code = HttpStatus.CREATED)
 	@ApiOperation(value = "Guarda la persona dada.", notes = "")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = PersonaResource.class), @ApiResponse(code = 400, message = "Bad request") })
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Created", response = PersonaResource.class), @ApiResponse(code = 400, message = "Bad request") })
 	public ResponseEntity<PersonaResource> save(@RequestBody(required = true) PersonaResource persona) {
 		if(persona == null)
 			return ResponseEntity.badRequest().build();
@@ -50,7 +52,23 @@ public class PersonaController {
 		
 		Persona result = personaRepository.save(per);
 		
-		return ResponseEntity.ok(PersonaAssembler.buildFromEntity(result));
+		return ResponseEntity.created(URI.create("/personas/" + result.getId())).build();
+	}
+	
+	@GetMapping("/personas/{id}")
+	@ResponseBody
+	@ResponseStatus(code = HttpStatus.OK)
+	@ApiOperation(value = "Obten persona por id.", notes = "")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = PersonaResource.class), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 404, message = "Not Found") })
+	public ResponseEntity<PersonaResource> get(@ApiParam(required = true) @PathVariable(required = true) Long id) {
+		
+		Persona persona = personaRepository.findById(id).get();
+		
+		if(persona == null)
+			return ResponseEntity.notFound().build();
+
+		return ResponseEntity.ok(PersonaAssembler.buildFromEntity(persona));
+
 	}
 	
 	@GetMapping("/personas/search")

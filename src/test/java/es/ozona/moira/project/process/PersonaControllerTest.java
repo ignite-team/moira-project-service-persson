@@ -36,6 +36,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import es.ozona.moira.project.process.infrastructure.repositories.PersonaRepository;
 import es.ozona.moira.project.process.interfaces.rest.PersonaController;
+import es.ozona.moira.project.process.interfaces.rest.dto.EntidadResource;
 import es.ozona.moira.project.process.interfaces.rest.dto.PersonaResource;
 import es.ozona.moira.project.process.model.entities.Entidad;
 import es.ozona.moira.project.process.model.entities.Grupo;
@@ -48,6 +49,45 @@ public class PersonaControllerTest extends AbstractTest{
 	@BeforeEach
 	public void setUp() {
 	   super.setUp();
+	}
+	
+	@Test 
+	public void save() throws Exception {
+		PersonaResource res = new PersonaResource(4L);
+		res.setNombre("Alberto");
+		res.setApellidos("Perez");
+		res.setNombre_completo("Alberto Perez");
+		res.setCorreo("alberto.perez@ozona.es");
+		res.setTelefono("666666666");
+		res.setActivo(true);
+		res.setFechaBaja(null);
+		res.setFechaCreacion(new Date());
+		res.setFechaModificacion(new Date());
+		res.setEntidad(new EntidadResource(1L));
+		
+		 String inputJson = super.mapToJson(res);
+		
+		String uri = "/api/v1/personas/save";
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+		        .content(inputJson)).andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+	      assertEquals(201, status);
+	      
+	}
+	
+	@Test
+	public void get() throws Exception {
+		String uri = "/api/v1/personas/1";
+	      MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+	         .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+	      
+	      int status = mvcResult.getResponse().getStatus();
+	      assertEquals(200, status);
+	      String content = mvcResult.getResponse().getContentAsString();
+	      PersonaResource persona = super.mapFromJson(content, PersonaResource.class);
+	      assertEquals(persona.getNombre_completo(), "Juan Marino");
 	}
 	
 	@Test
