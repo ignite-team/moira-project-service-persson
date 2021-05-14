@@ -1,6 +1,6 @@
 # Documentación Jenkins
 
-## Instalacioó
+## Instalación
 
   Para el proceso de instalación que se va a describir es necesario descargar la última versión LTS del [instalador](https://www.jenkins.io/download/) de Jenkins.
 
