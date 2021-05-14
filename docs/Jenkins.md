@@ -32,13 +32,13 @@
 
   En la sección JDK debes indicar la ruta donde tienes instalada la versión de Java que utilizarás. Haz click sobre el botón “Add JDK” e introduce la información requerida.
 
-  ![jdk](docs/imgs/addJDK.PNG?raw=true)
+  ![jdk](imgs/addJDK.PNG?raw=true)
 
 ### Maven
 
   En la sección Maven, vamos a hacer uso de la opción instalar automaticamente. Haz click sobre el botón “Add Maven”, posteriormente sobre el check "Install automatically" y seleciona la versión que desees.
 
-  ![maven](docs/imgs/addMaven.PNG?raw=true)
+  ![maven](imgs/addMaven.PNG?raw=true)
 
 ### Plugins
 
@@ -46,9 +46,9 @@
 
   Serán necesarios dos plugins:
   1. [Maven integration plugin](https://plugins.jenkins.io/maven-plugin/).
-  ![mavenPlugin](docs/imgs/mavenPlugin.PNG?raw=true)
+  ![mavenPlugin](imgs/mavenPlugin.PNG?raw=true)
   2. [GIT Plugin](https://plugins.jenkins.io/git/). Si en la post-instalación escogiste *Install suggested plugins* este plugin ya deberia estar instalado.
-  ![gitPlugin](docs/imgs/gitPlugin.PNG?raw=true)
+  ![gitPlugin](imgs/gitPlugin.PNG?raw=true)
 
 ## Ejecución de Jobs
 
@@ -62,7 +62,7 @@
 
   Crea una nueva credencial de tipo *Username with password* con el usuario y contraseñas de git.
 
-  ![credentials](docs/imgs/credentials.PNG?raw=true)
+  ![credentials](imgs/credentials.PNG?raw=true)
 
 ### New Item
 
@@ -72,25 +72,25 @@
 
   Escribe una descripción del proyecto y seleciona el repositorio git.
 
-  ![general](docs/imgs/general.PNG?raw=true)
+  ![general](imgs/general.PNG?raw=true)
 
 #### Origen de código fuente
  
   Seleciona la opción git e indica el repositorio , la rama y las credenciales ( Las anteriormente creadas).
 
-  ![fontCode](docs/imgs/fontCode.PNG?raw=true)
+  ![fontCode](imgs/fontCode.PNG?raw=true)
 
 #### Disparadores
   
   Aquí vamos a establecer que el job se lance cada vez que se produzca un cambio en el repositorio Git. Además, vamos a realizar un Polling contra el respositorio, realizando consultas periódicas cada 10 minutos para detectar si ha producido algún cambio en el código fuente de nuestra aplicación.
 
-  ![Triggers](docs/imgs/triggers.PNG?raw=true)
+  ![Triggers](imgs/triggers.PNG?raw=true)
 
 #### Construcción(Build)
 
    Indicaremos a Jenkins como realizar la construcción de nuestra aplicación. Dado que estamos construyendo un proyecto Maven, es necesario indicar la ubicación del fichero pom.xml y las fases que queremos ejecutar, que serán clean install.
 
-  ![Build](docs/imgs/build.PNG?raw=true)
+  ![Build](imgs/build.PNG?raw=true)
 
 #### Finalizar y ejecutar
 
