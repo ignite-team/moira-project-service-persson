@@ -1,6 +1,6 @@
-# Documentacion Jenkins
+# Documentación Jenkins
 
-## Instalacion
+## Instalacioó
 
   Para el proceso de instalación que se va a describir es necesario descargar la última versión LTS del [instalador](https://www.jenkins.io/download/) de Jenkins.
 
@@ -12,7 +12,7 @@
   5. Selecionar features.
   6. Aceptar e instalar.
 
-### Post-instalation
+### Post-instalación
   
   Una vez terminado accede a http://localhost:8080 y espera por la página *Unlock Jenkins*. Este pedira una contraseña que puedes encontrar o bien en la ruta indicada dentro de la propia página o en el archivo *jenkins.err.log* del directorio donde se instalo jenkins.
 
