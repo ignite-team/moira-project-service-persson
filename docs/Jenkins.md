@@ -32,7 +32,7 @@
 
   En la sección JDK debes indicar la ruta donde tienes instalada la versión de Java que utilizarás. Haz click sobre el botón “Add JDK” e introduce la información requerida.
 
-  ![jdk](/imgs/addJDK.PNG)
+  ![jdk](imgs/addJDK.PNG?raw=true)
 
 ### Maven
 
