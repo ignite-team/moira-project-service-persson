@@ -84,7 +84,7 @@
   
   Aquí vamos a establecer que el job se lance cada vez que se produzca un cambio en el repositorio Git. Además, vamos a realizar un Polling contra el respositorio, realizando consultas periódicas cada 10 minutos para detectar si ha producido algún cambio en el código fuente de nuestra aplicación.
 
-  ![Triggers](imgs/triggers.PNG?raw=true)
+  ![Triggers](imgs/Triggers.PNG?raw=true)
 
 #### Construcción(Build)
 
